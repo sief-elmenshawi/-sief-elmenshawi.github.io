@@ -577,19 +577,30 @@
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
   // ============================================================
-  //  CONFIG — fill these in, then the form sends to your Gmail
-  //  1. https://dashboard.emailjs.com  ->  Email Services  -> Add New Service  (Gmail)      -> copy Service ID
-  //  2. https://dashboard.emailjs.com  ->  Email Templates -> Add New Template               -> copy Template ID
-  //  3. https://dashboard.emailjs.com  ->  Account          -> copy Public Key
-  //  Template variables used:  {{from_name}}  {{reply_to}}  {{message}}
+  //  CONFIG — fill these 3 values in, then the form sends to your Gmail
+  //
+  //  1. dashboard.emailjs.com -> Email Services  -> Add New Service -> Gmail
+  //     connect siefelmnshawi@gmail.com, allow sief@emailjs.com, copy the Service ID
+  //  2. dashboard.emailjs.com -> Email Templates -> Add New Template -> copy Template ID
+  //        Subject line :  Portfolio enquiry from {{from_name}}
+  //        To email     :  siefelmnshawi@gmail.com
+  //        Content (HTML):
+  //          <h2>New portfolio enquiry</h2>
+  //          <p><strong>From:</strong> {{from_name}}</p>
+  //          <p><strong>Reply to:</strong> <a href="mailto:{{reply_to}}">{{reply_to}}</a></p>
+  //          <hr>
+  //          <p style="white-space:pre-wrap">{{message}}</p>
+  //  3. dashboard.emailjs.com -> Account -> copy Public Key
+  //
+  //  The public key is designed to be public — safe to commit to GitHub.
+  //  Set a monthly send limit on the free tier (200/mo) so nobody can drain it.
+  //  Until the keys are filled in, the form falls back to a prefilled mailto.
   // ============================================================
   var CONTACT = {
     publicKey : 'YOUR_PUBLIC_KEY',
     serviceId : 'service_XXXXXXX',
     templateId: 'template_XXXXXXX',
-    toEmail   : 'siefelmnshawi@gmail.com',
-    // if EmailJS is not configured yet, open the visitor's mail app instead
-    mailtoFallback: true
+    toEmail   : 'siefelmnshawi@gmail.com'
   };
 
   function emailJsReady(){
