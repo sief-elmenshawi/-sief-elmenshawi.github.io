@@ -750,9 +750,11 @@
 
   // Prefilled Gmail compose link
   function gmailHref(subject, body){
+    // collapse newlines in the subject: encodeURIComponent turns them into %0A,
+    // which mail clients decode back into extra subject headers
     return 'mailto:' + CONTACT.toEmail
-      + '?subject=' + encodeURIComponent(subject)
-      + '&body='    + encodeURIComponent(body);
+      + '?subject=' + encodeURIComponent(String(subject).replace(/[\r\n]+/g, ' ').trim())
+      + '&body='    + encodeURIComponent(String(body));
   }
   var quickHi = gmailHref(
     'Hello Sief',
@@ -817,9 +819,41 @@
     input.closest('.form-field').classList.toggle('err', bad);
     return !bad;
   }
-  function showStatus(kind, text){
+  function showStatus(kind, content){
     statusEl.className = 'form-status show ' + (kind === 'ok' ? 'ok' : 'bad');
-    statusEl.innerHTML = '<span aria-hidden="true">' + (kind === 'ok' ? '✓' : '⚠') + '</span><span>' + text + '</span>';
+    statusEl.textContent = '';
+    var icon = document.createElement('span');
+    icon.setAttribute('aria-hidden', 'true');
+    icon.textContent = kind === 'ok' ? '\u2713' : '\u26A0';
+    var body = document.createElement('span');
+    // string -> literal text; DocumentFragment -> caller-built nodes.
+    // Never assign user input to innerHTML: the name field reached it here.
+    if(typeof content === 'string'){
+      body.textContent = content;
+    } else {
+      body.appendChild(content);
+    }
+    statusEl.appendChild(icon);
+    statusEl.appendChild(body);
+  }
+  // Build status content without innerHTML. Strings become text nodes, so any
+  // visitor-supplied value is inert.
+  function frag(){
+    var f = document.createDocumentFragment();
+    [].forEach.call(arguments, function(part){
+      if(part == null) return;
+      f.appendChild(typeof part === 'string' ? document.createTextNode(part) : part);
+    });
+    return f;
+  }
+  function bold(t){ var b = document.createElement('b'); b.textContent = t; return b; }
+  function mailLink(addr){
+    var a = document.createElement('a');
+    a.href = 'mailto:' + addr;
+    a.style.color = 'inherit';
+    a.style.fontWeight = '700';
+    a.textContent = addr;
+    return a;
   }
   function setLoading(on){
     sendBtn.classList.toggle('loading', on);
@@ -854,14 +888,13 @@
       .then(function(){
         setLoading(false);
         form.reset();
-        showStatus('ok', '<b>Message sent.</b> Thanks ' + name + ' — I usually reply within a day.');
+        showStatus('ok', frag(bold('Message sent.'), ' Thanks ' + name + ' — I usually reply within a day.'));
       })
       .catch(function(err){
         setLoading(false);
         console.error('EmailJS error:', err);
-        showStatus('bad', 'Sending failed. Please email me directly at '
-          + '<a href="mailto:' + CONTACT.toEmail + '" style="color:inherit;font-weight:700">'
-          + CONTACT.toEmail + '</a>.');
+        showStatus('bad', frag('Sending failed. Please email me directly at ',
+          mailLink(CONTACT.toEmail), '.'));
       });
   });
 
