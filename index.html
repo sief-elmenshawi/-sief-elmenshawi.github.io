@@ -231,92 +231,154 @@
   .proj-card:hover .proj-cta{background:rgba(139,92,246,.2);border-color:var(--purple2);gap:11px;}
   .proj-cta.static{background:transparent;border-color:transparent;padding-left:0;color:var(--muted);}
 
-  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start;}
-  @media (max-width:860px){ .contact-grid{grid-template-columns:1fr;} }
-  .contact-form{border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:28px;}
-  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
-  @media (max-width:520px){ .form-row{grid-template-columns:1fr;} }
-  .form-field label{display:block;font-size:13px;font-weight:600;color:var(--blue);margin-bottom:8px;}
-  .form-field input,.form-field textarea{
-    width:100%;background:var(--panel-2);border:1px solid var(--line);border-radius:10px;
-    padding:12px 14px;color:var(--text);font-family:'Inter',sans-serif;font-size:14px;
-    transition:border-color .15s ease,box-shadow .15s ease;
+  .contact-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:20px;
   }
-  .form-field input::placeholder,.form-field textarea::placeholder{color:var(--muted);opacity:.7;}
-  .form-field input:focus,.form-field textarea:focus{
-    outline:none;border-color:var(--purple2);box-shadow:0 0 0 3px rgba(139,92,246,.18);
+  @media (max-width:960px){
+    .contact-grid{grid-template-columns:repeat(2, 1fr);}
   }
-  .form-field textarea{resize:vertical;min-height:110px;}
-  .form-field{margin-bottom:16px;}
-  .form-field.err input,.form-field.err textarea{border-color:#F87171;box-shadow:0 0 0 3px rgba(248,113,113,.15);}
-  .err-msg{display:none;color:#F87171;font-size:12px;margin-top:6px;}
-  .form-field.err .err-msg{display:block;}
-  .send-btn{
-    width:100%;background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;
-    border:none;padding:13px;border-radius:10px;font-size:14.5px;font-weight:700;cursor:pointer;
-    display:flex;align-items:center;justify-content:center;gap:8px;
-    transition:opacity .15s ease,transform .12s ease,box-shadow .18s ease;
+  @media (max-width:580px){
+    .contact-grid{grid-template-columns:1fr;}
   }
-  .send-btn:hover{transform:translateY(-1px);box-shadow:0 10px 24px -10px rgba(139,92,246,.85);}
-  .send-btn:disabled{opacity:.6;cursor:not-allowed;transform:none;box-shadow:none;}
-  .send-btn .spinner{
-    width:15px;height:15px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;
-    border-radius:50%;animation:spin .7s linear infinite;display:none;
+
+  .contact-card{
+    position:relative;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:24px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    min-height:165px;
+    transition:transform .2s cubic-bezier(.2,.7,.3,1),border-color .2s ease,box-shadow .2s ease;
   }
-  .send-btn.loading .spinner{display:block;}
-  .send-btn.loading .btn-label{opacity:.8;}
-  @keyframes spin{to{transform:rotate(360deg);}}
-  .form-status{
-    display:none;align-items:flex-start;gap:9px;margin-top:14px;padding:12px 14px;
-    border-radius:10px;font-size:13.5px;line-height:1.5;border:1px solid transparent;
+  .contact-card:hover{
+    transform:translateY(-4px);
+    border-color:var(--purple2);
+    box-shadow:0 14px 30px -10px rgba(139,92,246,.25);
   }
-  .form-status.show{display:flex;animation:rise .3s ease both;}
-  .form-status.ok{background:rgba(52,211,153,.1);border-color:rgba(52,211,153,.4);color:var(--green);}
-  .form-status.bad{background:rgba(248,113,113,.1);border-color:rgba(248,113,113,.4);color:#F87171;}
-  .form-status b{font-weight:700;}
-  .connect-panel{
-    border:1px solid var(--line);border-radius:16px;padding:26px 24px;
-    background:
-      radial-gradient(120% 90% at 100% 0%, rgba(139,92,246,.14), transparent 60%),
-      var(--panel);
-    display:flex;flex-direction:column;
+  .contact-card.static-card:hover{
+    border-color:rgba(52,211,153,.45);
+    box-shadow:0 14px 30px -10px rgba(52,211,153,.15);
   }
-  .connect-panel h3{font-size:19px;font-weight:800;color:var(--text);margin:0 0 4px;display:flex;align-items:center;gap:9px;}
-  .connect-panel h3 .pulse{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(52,211,153,.16);flex-shrink:0;}
-  .connect-panel .cp-sub{font-size:13px;color:var(--muted);margin:0 0 20px;}
-  .contact-list{display:flex;flex-direction:column;gap:10px;}
-  .contact-item{
-    display:flex;align-items:center;gap:8px;
-    border:1px solid var(--line);background:var(--panel-2);border-radius:12px;padding:6px 8px 6px 6px;
-    transition:transform .16s ease,border-color .16s ease,background .16s ease;
+
+  .cc-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:14px;
   }
-  .contact-item:hover{transform:translateX(4px);border-color:var(--purple2);background:var(--panel);}
-  .ci-link{display:flex;align-items:center;gap:13px;flex:1;min-width:0;padding:7px 8px;border-radius:8px;}
-  .ci-link:focus-visible{outline:2px solid var(--purple2);outline-offset:2px;}
-  .contact-item .ci-ic{
-    width:38px;height:38px;border-radius:10px;flex-shrink:0;
-    display:flex;align-items:center;justify-content:center;
+  .cc-ic{
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
   }
   .ci-phone{background:rgba(52,211,153,.15);color:var(--green);}
+  .ci-wa{background:rgba(37,211,102,.15);color:#25D366;}
   .ci-mail{background:rgba(139,92,246,.15);color:var(--purple2);}
   .ci-in{background:rgba(56,189,248,.15);color:var(--blue);}
   .ci-gh{background:rgba(240,240,245,.12);color:var(--text);}
-  .ci-wa{background:rgba(37,211,102,.14);color:#25D366;}
   :root[data-theme="light"] .ci-gh{background:rgba(24,24,32,.08);}
-  .contact-item .ci-body{min-width:0;flex:1;}
-  .contact-item .ci-label{display:block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:2px;}
-  .contact-item .ci-value{display:block;font-size:14.5px;font-weight:600;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .contact-item .ci-copy{
-    flex-shrink:0;width:32px;height:32px;border-radius:8px;border:1px solid var(--line);
-    background:transparent;color:var(--muted);cursor:pointer;
-    display:flex;align-items:center;justify-content:center;padding:0;
-    transition:color .15s ease,border-color .15s ease,background .15s ease;
+  .ci-status{background:rgba(52,211,153,.15);color:var(--green);}
+
+  .cc-copy{
+    position:relative;
+    z-index:2;
+    width:32px;
+    height:32px;
+    border-radius:8px;
+    border:1px solid var(--line);
+    background:var(--panel-2);
+    color:var(--muted);
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0;
+    transition:color .15s ease,border-color .15s ease,background .15s ease,transform .1s ease;
   }
-  .contact-item .ci-copy:hover{color:var(--purple2);border-color:var(--purple2);background:var(--panel);}
-  .contact-item .ci-copy:focus-visible{outline:2px solid var(--purple2);outline-offset:2px;}
-  .contact-item .ci-copy.done{color:var(--green);border-color:var(--green);}
-  .cp-note{margin-top:16px;font-size:12.5px;color:var(--muted);text-align:center;}
-  .cp-note b{color:var(--text);font-weight:600;}
+  .cc-copy:hover{color:var(--purple2);border-color:var(--purple2);background:var(--panel);transform:scale(1.06);}
+  .cc-copy:focus-visible{outline:2px solid var(--purple2);outline-offset:2px;}
+  .cc-copy.done{color:var(--green);border-color:var(--green);}
+
+  .cc-main-link{
+    text-decoration:none;
+    color:inherit;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    flex:1;
+  }
+  .cc-main-link::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:16px;
+    z-index:1;
+  }
+  .contact-card.static-card .cc-main-link::after{
+    display:none;
+  }
+  .cc-main-link:focus-visible{
+    outline:2px solid var(--purple2);
+    outline-offset:2px;
+    border-radius:16px;
+  }
+
+  .cc-label{
+    display:block;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  .cc-value{
+    display:block;
+    font-size:15.5px;
+    font-weight:700;
+    color:var(--text);
+    word-break:break-word;
+    margin-bottom:12px;
+  }
+  .cc-cta{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:13px;
+    font-weight:600;
+    color:var(--purple2);
+    margin-top:auto;
+    transition:gap .18s ease;
+  }
+  .contact-card:hover .cc-cta{gap:10px;}
+  .cc-cta.status-cta{
+    color:var(--green);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .status-dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 0 4px rgba(52,211,153,.2);
+    animation:pulse-glow 2s infinite;
+  }
+  @keyframes pulse-glow{
+    0%{box-shadow:0 0 0 0 rgba(52,211,153,.45);}
+    70%{box-shadow:0 0 0 7px rgba(52,211,153,0);}
+    100%{box-shadow:0 0 0 0 rgba(52,211,153,0);}
+  }
 
   footer{border-top:1px solid var(--line);padding:30px 0;}
   .footer-bar{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
@@ -337,11 +399,6 @@
     @keyframes rise{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
   }
 
-  /* light theme contrast fixes for error states */
-  :root[data-theme="light"] .err-msg{color:#DC2626;}
-  :root[data-theme="light"] .form-status.bad{color:#B91C1C;background:rgba(220,38,38,.08);border-color:rgba(220,38,38,.35);}
-  :root[data-theme="light"] .form-field.err input,
-  :root[data-theme="light"] .form-field.err textarea{border-color:#DC2626;box-shadow:0 0 0 3px rgba(220,38,38,.12);}
 </style>
 </head>
 <body>
@@ -591,102 +648,100 @@
   <section id="contact">
     <div class="section-head">
       <h2>Let's <span class="accent">Connect</span></h2>
-      <p>Have a project in mind, or just want to say hi? Send a message below.</p>
+      <p>Have an opportunity, a project in mind, or just want to chat? Reach out through any platform below.</p>
     </div>
     <div class="contact-grid">
-      <div class="contact-form">
-        <form id="contactForm" novalidate>
-          <div class="form-row">
-            <div class="form-field">
-              <label for="cfName">Name</label>
-              <input id="cfName" name="from_name" type="text" placeholder="Your name" autocomplete="name">
-              <div class="err-msg">Please enter your name.</div>
-            </div>
-            <div class="form-field">
-              <label for="cfEmail">Email</label>
-              <input id="cfEmail" name="reply_to" type="email" placeholder="you@example.com" autocomplete="email">
-              <div class="err-msg">Please enter a valid email address.</div>
-            </div>
+      <!-- 1. Phone -->
+      <div class="contact-card">
+        <div class="cc-top">
+          <div class="cc-ic ci-phone">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>
           </div>
-          <div class="form-field">
-            <label for="cfMessage">Message</label>
-            <textarea id="cfMessage" name="message" placeholder="I'd like to talk about..."></textarea>
-            <div class="err-msg">Please write a short message.</div>
-          </div>
-          <button class="send-btn" id="sendBtn" type="submit">
-            <span class="spinner" aria-hidden="true"></span>
-            <span class="btn-label" id="sendLabel">➤ Send message</span>
+          <button class="cc-copy" type="button" data-copy="+201142370184" data-label="Copy phone number" aria-label="Copy phone number">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
           </button>
-          <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
-        </form>
+        </div>
+        <a class="cc-main-link" href="tel:+201142370184" aria-label="Call +20 114 237 0184">
+          <span class="cc-label">Phone</span>
+          <span class="cc-value" dir="ltr">+20 114 237 0184</span>
+          <span class="cc-cta">Call directly &rarr;</span>
+        </a>
       </div>
-      <div class="connect-panel">
-        <h3><span class="pulse"></span>Reach me directly</h3>
-        <p class="cp-sub">Fastest reply on phone or WhatsApp — usually within a few hours.</p>
-        <div class="contact-list">
-          <div class="contact-item">
-            <a class="ci-link" href="tel:+201142370184" aria-label="Call +20 114 237 0184">
-              <span class="ci-ic ci-phone">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>
-              </span>
-              <span class="ci-body">
-                <span class="ci-label">Phone</span>
-                <span class="ci-value" dir="ltr">+20 114 237 0184</span>
-              </span>
-            </a>
-            <button class="ci-copy" type="button" data-copy="+201142370184" data-label="Copy phone number" aria-label="Copy phone number">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-            </button>
+
+      <!-- 2. WhatsApp -->
+      <div class="contact-card">
+        <div class="cc-top">
+          <div class="cc-ic ci-wa">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.8 1-.3.2-.5 0a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.6-1.2 0-.1 0-.3 0-.4l-.7-1.7c-.2-.4-.4-.4-.5-.4h-.5a1 1 0 0 0-.7.3 2.9 2.9 0 0 0-.9 2.1 5 5 0 0 0 1 2.6 11.4 11.4 0 0 0 4.4 3.9c1.6.6 2.2.7 3 .6a2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .1-1.2c0-.1-.2-.2-.5-.3Z"/></svg>
           </div>
-          <div class="contact-item">
-            <a class="ci-link" href="https://wa.me/201142370184" target="_blank" rel="noopener" aria-label="WhatsApp chat">
-              <span class="ci-ic ci-wa">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.8 1-.3.2-.5 0a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.6-1.2 0-.1 0-.3 0-.4l-.7-1.7c-.2-.4-.4-.4-.5-.4h-.5a1 1 0 0 0-.7.3 2.9 2.9 0 0 0-.9 2.1 5 5 0 0 0 1 2.6 11.4 11.4 0 0 0 4.4 3.9c1.6.6 2.2.7 3 .6a2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .1-1.2c0-.1-.2-.2-.5-.3Z"/></svg>
-              </span>
-              <span class="ci-body">
-                <span class="ci-label">WhatsApp</span>
-                <span class="ci-value" dir="ltr">+20 114 237 0184</span>
-              </span>
-            </a>
+          <button class="cc-copy" type="button" data-copy="+201142370184" data-label="Copy WhatsApp number" aria-label="Copy WhatsApp number">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+          </button>
+        </div>
+        <a class="cc-main-link" href="https://wa.me/201142370184" target="_blank" rel="noopener" aria-label="WhatsApp chat">
+          <span class="cc-label">WhatsApp</span>
+          <span class="cc-value" dir="ltr">+20 114 237 0184</span>
+          <span class="cc-cta">Chat on WhatsApp &rarr;</span>
+        </a>
+      </div>
+
+      <!-- 3. Email -->
+      <div class="contact-card">
+        <div class="cc-top">
+          <div class="cc-ic ci-mail">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
           </div>
-          <div class="contact-item">
-            <a class="ci-link" id="gmailLink" href="mailto:siefelmnshawi@gmail.com" aria-label="Send an email">
-              <span class="ci-ic ci-mail">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
-              </span>
-              <span class="ci-body">
-                <span class="ci-label">Email</span>
-                <span class="ci-value">siefelmnshawi@gmail.com</span>
-              </span>
-            </a>
-            <button class="ci-copy" type="button" data-copy="siefelmnshawi@gmail.com" data-label="Copy email address" aria-label="Copy email address">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-            </button>
-          </div>
-          <div class="contact-item">
-            <a class="ci-link" href="https://www.linkedin.com/in/sief-elmenshawi/" target="_blank" rel="noopener" aria-label="LinkedIn profile">
-              <span class="ci-ic ci-in">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.1 1 2.48 1 4.98 2.12 4.98 3.5zM.5 8.5h4V23h-4V8.5zM8.5 8.5h3.83v1.98h.05c.53-1 1.84-2.06 3.79-2.06 4.05 0 4.8 2.67 4.8 6.14V23h-4v-6.62c0-1.58-.03-3.6-2.2-3.6-2.2 0-2.54 1.72-2.54 3.49V23h-4V8.5z"/></svg>
-              </span>
-              <span class="ci-body">
-                <span class="ci-label">LinkedIn</span>
-                <span class="ci-value">in/sief-elmenshawi</span>
-              </span>
-            </a>
-          </div>
-          <div class="contact-item">
-            <a class="ci-link" href="https://github.com/sief-elmenshawi" target="_blank" rel="noopener" aria-label="GitHub profile">
-              <span class="ci-ic ci-gh">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.11-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.41-5.25 5.7.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .31.21.66.79.55A10.51 10.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
-              </span>
-              <span class="ci-body">
-                <span class="ci-label">GitHub</span>
-                <span class="ci-value">github.com/sief-elmenshawi</span>
-              </span>
-            </a>
+          <button class="cc-copy" type="button" data-copy="siefelmnshawi@gmail.com" data-label="Copy email address" aria-label="Copy email address">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+          </button>
+        </div>
+        <a class="cc-main-link" id="gmailLink" href="mailto:siefelmnshawi@gmail.com" aria-label="Send an email">
+          <span class="cc-label">Email</span>
+          <span class="cc-value">siefelmnshawi@gmail.com</span>
+          <span class="cc-cta">Send an email &rarr;</span>
+        </a>
+      </div>
+
+      <!-- 4. LinkedIn -->
+      <div class="contact-card">
+        <div class="cc-top">
+          <div class="cc-ic ci-in">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.1 1 2.48 1 4.98 2.12 4.98 3.5zM.5 8.5h4V23h-4V8.5zM8.5 8.5h3.83v1.98h.05c.53-1 1.84-2.06 3.79-2.06 4.05 0 4.8 2.67 4.8 6.14V23h-4v-6.62c0-1.58-.03-3.6-2.2-3.6-2.2 0-2.54 1.72-2.54 3.49V23h-4V8.5z"/></svg>
           </div>
         </div>
-        <p class="cp-note">Open to freelance &amp; remote backend work — <b>reply within 24h</b>.</p>
+        <a class="cc-main-link" href="https://www.linkedin.com/in/sief-elmenshawi/" target="_blank" rel="noopener" aria-label="LinkedIn profile">
+          <span class="cc-label">LinkedIn</span>
+          <span class="cc-value">in/sief-elmenshawi</span>
+          <span class="cc-cta">View profile &rarr;</span>
+        </a>
+      </div>
+
+      <!-- 5. GitHub -->
+      <div class="contact-card">
+        <div class="cc-top">
+          <div class="cc-ic ci-gh">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.11-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.41-5.25 5.7.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .31.21.66.79.55A10.51 10.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+          </div>
+        </div>
+        <a class="cc-main-link" href="https://github.com/sief-elmenshawi" target="_blank" rel="noopener" aria-label="GitHub profile">
+          <span class="cc-label">GitHub</span>
+          <span class="cc-value">github.com/sief-elmenshawi</span>
+          <span class="cc-cta">Browse repositories &rarr;</span>
+        </a>
+      </div>
+
+      <!-- 6. Status / Availability -->
+      <div class="contact-card static-card">
+        <div class="cc-top">
+          <div class="cc-ic ci-status">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+        </div>
+        <div class="cc-main-link">
+          <span class="cc-label">Availability</span>
+          <span class="cc-value">Open for Work</span>
+          <span class="cc-cta status-cta"><span class="status-dot"></span> Freelance &amp; Remote Backend</span>
+        </div>
       </div>
     </div>
   </section>
@@ -712,41 +767,10 @@
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-  // ============================================================
-  //  CONFIG — fill these 3 values in, then the form sends to your Gmail
-  //
-  //  1. dashboard.emailjs.com -> Email Services  -> Add New Service -> Gmail
-  //     connect siefelmnshawi@gmail.com, allow sief@emailjs.com, copy the Service ID
-  //  2. dashboard.emailjs.com -> Email Templates -> Add New Template -> copy Template ID
-  //        Subject line :  Portfolio enquiry from {{from_name}}
-  //        To email     :  siefelmnshawi@gmail.com
-  //        Content (HTML):
-  //          <h2>New portfolio enquiry</h2>
-  //          <p><strong>From:</strong> {{from_name}}</p>
-  //          <p><strong>Reply to:</strong> <a href="mailto:{{reply_to}}">{{reply_to}}</a></p>
-  //          <hr>
-  //          <p style="white-space:pre-wrap">{{message}}</p>
-  //  3. dashboard.emailjs.com -> Account -> copy Public Key
-  //
-  //  The public key is designed to be public — safe to commit to GitHub.
-  //  Set a monthly send limit on the free tier (200/mo) so nobody can drain it.
-  //  Until the keys are filled in, the form falls back to a prefilled mailto.
-  // ============================================================
   var CONTACT = {
-    publicKey : 'YOUR_PUBLIC_KEY',
-    serviceId : 'service_XXXXXXX',
-    templateId: 'template_XXXXXXX',
-    toEmail   : 'siefelmnshawi@gmail.com'
+    toEmail: 'siefelmnshawi@gmail.com'
   };
-
-  function emailJsReady(){
-    return window.emailjs
-      && CONTACT.publicKey  && !/YOUR_/.test(CONTACT.publicKey)
-      && CONTACT.serviceId  && !/YOUR_/.test(CONTACT.serviceId)
-      && CONTACT.templateId && !/YOUR_/.test(CONTACT.templateId);
-  }
 
   // Prefilled Gmail compose link
   function gmailHref(subject, body){
@@ -786,7 +810,9 @@
     }
     return legacyCopy(txt);
   }
-  document.querySelectorAll('.ci-copy').forEach(function(btn){
+
+  // ---------- Copy to clipboard on the contact cards ----------
+  document.querySelectorAll('.cc-copy').forEach(function(btn){
     var original = btn.innerHTML;
     btn.setAttribute('title', btn.getAttribute('data-label'));
     btn.addEventListener('click', function(){
@@ -801,109 +827,6 @@
         }, 1600);
       }).catch(function(){
         btn.setAttribute('title', 'Press Ctrl+C to copy');
-      });
-    });
-  });
-
-  // ---------- Contact form ----------
-  var form    = document.getElementById('contactForm');
-  var sendBtn = document.getElementById('sendBtn');
-  var sendLbl = document.getElementById('sendLabel');
-  var statusEl= document.getElementById('formStatus');
-  var fName   = document.getElementById('cfName');
-  var fEmail  = document.getElementById('cfEmail');
-  var fMsg    = document.getElementById('cfMessage');
-  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-
-  function setErr(input, bad){
-    input.closest('.form-field').classList.toggle('err', bad);
-    return !bad;
-  }
-  function showStatus(kind, content){
-    statusEl.className = 'form-status show ' + (kind === 'ok' ? 'ok' : 'bad');
-    statusEl.textContent = '';
-    var icon = document.createElement('span');
-    icon.setAttribute('aria-hidden', 'true');
-    icon.textContent = kind === 'ok' ? '\u2713' : '\u26A0';
-    var body = document.createElement('span');
-    // string -> literal text; DocumentFragment -> caller-built nodes.
-    // Never assign user input to innerHTML: the name field reached it here.
-    if(typeof content === 'string'){
-      body.textContent = content;
-    } else {
-      body.appendChild(content);
-    }
-    statusEl.appendChild(icon);
-    statusEl.appendChild(body);
-  }
-  // Build status content without innerHTML. Strings become text nodes, so any
-  // visitor-supplied value is inert.
-  function frag(){
-    var f = document.createDocumentFragment();
-    [].forEach.call(arguments, function(part){
-      if(part == null) return;
-      f.appendChild(typeof part === 'string' ? document.createTextNode(part) : part);
-    });
-    return f;
-  }
-  function bold(t){ var b = document.createElement('b'); b.textContent = t; return b; }
-  function mailLink(addr){
-    var a = document.createElement('a');
-    a.href = 'mailto:' + addr;
-    a.style.color = 'inherit';
-    a.style.fontWeight = '700';
-    a.textContent = addr;
-    return a;
-  }
-  function setLoading(on){
-    sendBtn.classList.toggle('loading', on);
-    sendBtn.disabled = on;
-    sendLbl.textContent = on ? 'Sending…' : '➤ Send message';
-  }
-
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-
-    var ok  = setErr(fName,  fName.value.trim() === '');
-    var ok2 = setErr(fEmail, !EMAIL_RE.test(fEmail.value.trim()));
-    var ok3 = setErr(fMsg,   fMsg.value.trim() === '');
-    if(!(ok && ok2 && ok3)){ showStatus('bad', 'Please fix the highlighted fields and try again.'); return; }
-
-    var name = fName.value.trim();
-    var email = fEmail.value.trim();
-    var message = fMsg.value.trim();
-
-    // No EmailJS keys yet -> hand the message to the visitor's mail app (still lands in your Gmail)
-    if(!emailJsReady()){
-      window.location.href = gmailHref('Portfolio enquiry from ' + name,
-        'Name: ' + name + '\nEmail: ' + email + '\n\n' + message);
-      showStatus('ok', 'Opening your mail app… send it and it lands straight in my inbox.');
-      return;
-    }
-
-    setLoading(true);
-    statusEl.className = 'form-status';
-
-    emailjs.sendForm(form, CONTACT.serviceId, CONTACT.templateId, { publicKey: CONTACT.publicKey })
-      .then(function(){
-        setLoading(false);
-        form.reset();
-        showStatus('ok', frag(bold('Message sent.'), ' Thanks ' + name + ' — I usually reply within a day.'));
-      })
-      .catch(function(err){
-        setLoading(false);
-        console.error('EmailJS error:', err);
-        showStatus('bad', frag('Sending failed. Please email me directly at ',
-          mailLink(CONTACT.toEmail), '.'));
-      });
-  });
-
-  ['input','blur'].forEach(function(evt){
-    [fName, fEmail, fMsg].forEach(function(el){
-      el.addEventListener(evt, function(){
-        if(el.closest('.form-field').classList.contains('err')){
-          setErr(el, evt === 'blur' && el.value.trim() === '' ? true : false);
-        }
       });
     });
   });
